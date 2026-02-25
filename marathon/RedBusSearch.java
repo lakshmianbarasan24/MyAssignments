@@ -24,20 +24,20 @@ public class RedBusSearch {
 		driver.get("https://www.redbus.in/");
 
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-
+		
 		// Select the From source city.
-		WebElement source = driver.findElement(By.xpath("//input[@id='srcinput']"));
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", source);
+		driver.findElement(By.xpath("//div[contains(@class,'srcDestWrapper') and .//label[text()='From']]"))
+		.click();
+		//((JavascriptExecutor) driver).executeScript("arguments[0].click();", source);
 
 		driver.findElement(By.xpath("//div[contains(@class,'searchSuggestionWrapper')]//div[text()='Koyambedu']"))
 				.click();
 
 		driver.findElement(By.xpath("//div[contains(@class,'searchSuggestionWrapper')]//div[text()='Bangalore']"))
 				.click();
-
+		
 		// Select the To destination city.
-		WebElement date = driver.findElement(By.xpath("//span[text()='Date of Journey']"));
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", date);
+		driver.findElement(By.xpath("//div[contains(@class,'dateInputWrapper')]")).click();
 		Thread.sleep(1000);
 
 		// Select tomorrow’s travel date.
