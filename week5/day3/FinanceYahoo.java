@@ -1,9 +1,11 @@
 package week5.day3;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -27,22 +29,19 @@ public class FinanceYahoo {
 		// click on “Crypto” tab
 		driver.findElement(By.linkText("Crypto")).click();
 
-		// Locate the table in the dom page
-		int totalRows = driver
-				.findElements(By.xpath("//header[h2[text()='Crypto']]/following-sibling::div//table//tbody//tr"))
-				.size();
-		System.out.println("Crypto Names:");
-		// Use loop to iterate the cryptocurrency names
-		for (int r = 1; r <= totalRows; r++) {
-			// Locate the cryptocurrency names in the table using specific row and column
-			String name = driver
-					.findElement(By.xpath(
-							"//header[h2[text()='Crypto']]/following-sibling::div//table//tbody//tr[" + r + "]//td[2]"))
-					.getText();
-			// Print the cryptocurrency names
-			System.out.println(name);
-		}
+		// Locate all crypto name cells directly
+		By cryptoNamesLocator = By.xpath(
+		    "//header[h2[text()='Crypto']]/following-sibling::div//table//tbody//tr/td[2]"
+		);
 
+		List<WebElement> cryptoNames = driver.findElements(cryptoNamesLocator);
+
+		System.out.println("Crypto Names:");
+
+		for (WebElement name : cryptoNames) {
+		    System.out.println(name.getText());
+		}
+		
 		driver.quit();
 
 	}
